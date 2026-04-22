@@ -30,8 +30,8 @@ public:
     virtual double calculatePrice(int nights) = 0;
     virtual void displayInfo() = 0;
 
-    friend std::ostream &operator<<(std::ostream &os, const Accommodation &obj);
-    friend std::istream &operator>>(std::istream &is, Accommodation &obj);
+    friend std::ostream &operator<<(std::ostream &out, const Accommodation &obj);
+    friend std::istream &operator>>(std::istream &in, Accommodation &obj);
 };
 
 

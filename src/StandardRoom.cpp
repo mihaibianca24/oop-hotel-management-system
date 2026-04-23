@@ -59,6 +59,10 @@ std::string StandardRoom::getRoomType() {
 }
 
 double StandardRoom::calculatePrice(int nights) {
+   if (hasBalcony) {
+      double price= (getPricePerNight()+0.2*getPricePerNight())*nights;
+      return price;
+   }
    return getPricePerNight()*nights;
 }
 

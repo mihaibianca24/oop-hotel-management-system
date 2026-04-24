@@ -1,10 +1,14 @@
 #include "Accommodation.h"
 using namespace std;
+
+int Accommodation::numberOfRooms = 0;
+
 Accommodation :: Accommodation() {
     this->roomNumber = 0;
     this->pricePerNight = 0;
     this->isAvailable = false;
     this->description = "";
+    numberOfRooms++;
 }
 
 Accommodation::Accommodation(int roomNumber, double pricePerNight,string description) {
@@ -12,6 +16,7 @@ Accommodation::Accommodation(int roomNumber, double pricePerNight,string descrip
     this->pricePerNight = pricePerNight;
     this->isAvailable = true;
     this->description = description;
+    numberOfRooms++;
 }
 
 Accommodation :: Accommodation(const Accommodation &obj) {
@@ -19,6 +24,7 @@ Accommodation :: Accommodation(const Accommodation &obj) {
     this->pricePerNight = obj.pricePerNight;
     this->isAvailable = obj.isAvailable;
     this->description = obj.description;
+    numberOfRooms++;
 }
 Accommodation &Accommodation :: operator=(const Accommodation &obj) {
     if (this == &obj)
@@ -29,7 +35,9 @@ Accommodation &Accommodation :: operator=(const Accommodation &obj) {
     this->description = obj.description;
     return *this;
 }
-Accommodation::~Accommodation(){}
+Accommodation::~Accommodation() {
+    numberOfRooms--;
+}
 
 void Accommodation :: setRoomNumber(int roomNumber) {
     this->roomNumber = roomNumber;
@@ -63,6 +71,10 @@ bool Accommodation :: getIsAvailable() const {
     return this->isAvailable;
 }
 
+int Accommodation::getNumberOfRooms() {
+    return numberOfRooms;
+}
+
 ostream &operator<<(std::ostream &out, const Accommodation &obj) {
     out << "Room Number: " << obj.getRoomNumber() << endl;
     out<< "Price Per Night: " << obj.getPricePerNight() << endl;
@@ -76,9 +88,6 @@ istream &operator>>(std::istream &in, Accommodation &obj) {
 
     cout << "Enter price per night: ";
     in >> obj.pricePerNight;
-
-    cout << "Enter availability(1 yes/0 no): ";
-    in >> obj.isAvailable;
 
     in.ignore();
     cout << "Enter description: ";

@@ -9,6 +9,7 @@ private:
     double pricePerNight;
     bool isAvailable;
     std::string description;
+    static int numberOfRooms;
 public:
     Accommodation();
     Accommodation(int roomNumber, double pricePerNight, std::string description);
@@ -29,6 +30,7 @@ public:
     virtual std::string getRoomType() = 0;
     virtual double calculatePrice(int nights) = 0;
     virtual void displayInfo() = 0;
+    static int getNumberOfRooms();
 
     friend std::ostream &operator<<(std::ostream &out, const Accommodation &obj);
     friend std::istream &operator>>(std::istream &in, Accommodation &obj);

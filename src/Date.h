@@ -28,6 +28,8 @@ private :
     bool operator >= (const Date &other) const;
     int operator - (const Date &other) const;
 
+    int toJulianDay(int day,int month,int year) const;
+
     friend std::ostream &operator<<(std::ostream &out, const Date &obj);
     friend std::istream &operator>>(std::istream &in, Date &obj);
 };

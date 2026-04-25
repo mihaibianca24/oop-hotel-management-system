@@ -23,6 +23,8 @@ private:
     public:
     Booking();
     Booking(Guest guest, Accommodation* room, Date checkin, Date checkout);
+    Booking(const std::string& bookingID, Guest guest, Accommodation* room,
+        Date checkin, Date checkout, const std::string& status);
     Booking(const Booking &obj);
     Booking &operator=(const Booking &obj);
     ~Booking();

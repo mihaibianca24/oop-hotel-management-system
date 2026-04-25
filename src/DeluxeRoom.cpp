@@ -55,3 +55,6 @@ void DeluxeRoom::displayInfo() {
     cout << "Has Balcony: " << (getHasBalcony() ? "Yes" : "No") << endl;
     cout << "Has Sea View: " << (hasSeaView ? "Yes" : "No") << endl;
 }
+DeluxeRoom* DeluxeRoom::clone() const {
+    return new DeluxeRoom(*this);
+}

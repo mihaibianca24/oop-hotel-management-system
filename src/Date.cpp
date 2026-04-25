@@ -90,8 +90,12 @@ bool Date::operator == (const Date &other) const {
     return false;
 }
 
+int Date::toJulianDay(int day,int month,int year) const{
+    return 365*year + year/4 - year/100 + year/400 + (month*306 + 5)/10 + day;
+}
+
 int Date::operator-(const Date &other) const {
-    return (this->year - other.year) * 365 + (this->month - other.month) * 30 + (this->day - other.day);
+    return toJulianDay(this->day,this->month,this->year)-toJulianDay(other.day,other.month,other.year);
 }
 std::ostream &operator<<(std::ostream &out, const Date &obj) {
     out << obj.day << "-" << obj.month << "-" << obj.year;

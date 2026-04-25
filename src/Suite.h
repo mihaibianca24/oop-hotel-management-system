@@ -28,5 +28,7 @@ class Suite : public Accommodation{
     std::string getRoomType() override;
     double calculatePrice(int nights) override;
     void displayInfo() override;
+    Suite* clone() const override;
+
 };
 #endif //OOP_HOTEL_MANAGEMENT_SYSTEM_SUITE_H

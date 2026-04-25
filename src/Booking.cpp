@@ -31,7 +31,17 @@ Booking::Booking(Guest guest, Accommodation* room, Date checkin, Date checkout) 
     this->totalCost = calculateTotalCost();
     this->status = "PENDING";
 }
-
+Booking::Booking(const std::string& bookingID, Guest guest, Accommodation* room,
+        Date checkin, Date checkout, const std::string& status) {
+    this->bookingID = bookingID;
+    this->guest = guest;
+    this->room = room;
+    this->checkin = checkin;
+    this->checkout = checkout;
+    this->nights = calculateNights();
+    this->totalCost = calculateTotalCost();
+    this->status = status;
+}
 Booking::Booking(const Booking &obj) {
     this->bookingID = obj.bookingID;
     this->guest = obj.guest;

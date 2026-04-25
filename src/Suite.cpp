@@ -92,3 +92,6 @@ void Suite::displayInfo() {
     cout << "Has Private Pool: " << (hasPrivatePool ? "Yes" : "No") << endl;
     cout << "Floor: " << floor << endl;
 }
+Suite* Suite::clone() const {
+    return new Suite(*this);
+}

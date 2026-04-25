@@ -73,3 +73,6 @@ void StandardRoom::displayInfo() {
    cout << "Has Balcony: " << (hasBalcony ? "Yes" : "No") << endl;
    cout << "Floor: " << floor << endl;
 }
+StandardRoom* StandardRoom::clone() const {
+   return new StandardRoom(*this);
+}

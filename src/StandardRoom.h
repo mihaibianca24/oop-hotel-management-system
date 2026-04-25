@@ -26,6 +26,7 @@ class StandardRoom : public Accommodation{
     std::string getRoomType() override;
     double calculatePrice(int nights) override;
     void displayInfo() override;
+    StandardRoom* clone() const override;
 };
 
 

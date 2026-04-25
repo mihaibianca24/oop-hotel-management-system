@@ -21,5 +21,6 @@ class DeluxeRoom : public StandardRoom {
     std::string getRoomType() override;
     double calculatePrice(int nights) override;
     void displayInfo() override;
+    DeluxeRoom* clone() const override;
 };
 #endif //OOP_HOTEL_MANAGEMENT_SYSTEM_DELUXEROOM_H

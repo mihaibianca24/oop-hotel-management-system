@@ -7,13 +7,14 @@
 #include "Accommodation.h"
 #include<iostream>
 #include <string>
+#include <random>
+
 using namespace std;
 
-int Booking :: noBookings = 0;
 
 Booking :: Booking() {
-    noBookings++;
-    bookingID = "B" + to_string(noBookings);
+    srand(time(nullptr));
+    bookingID = "B" + to_string(rand() % 9000 + 1000);
     nights = 0;
     room = nullptr;
     totalCost = 0.0;
@@ -21,8 +22,8 @@ Booking :: Booking() {
 }
 
 Booking::Booking(Guest guest, Accommodation* room, Date checkin, Date checkout) {
-    noBookings++;
-    bookingID = "B" + to_string(noBookings);
+    srand(time(nullptr));
+    bookingID = "B" + to_string(rand() % 9000 + 1000);
     this->guest = guest;
     this->room = room;
     this->checkin = checkin;
@@ -66,7 +67,6 @@ Booking &Booking::operator=(const Booking &obj) {
     return *this;
 }
 Booking::~Booking() {
-    noBookings--;
     room = nullptr;
 }
 
@@ -138,10 +138,6 @@ bool Booking :: hasDateConflict(const Date& newCheckIn, const Date& newCheckOut)
     return (newCheckIn < checkout && newCheckOut > checkin);
 }
 
-int Booking::getNoBookings() {
-    return noBookings;
-}
-
 void Booking::displaySummary() {
     cout << "Booking ID: " << bookingID << endl;
     cout << "Guest: " << guest.getName() << endl;
@@ -151,6 +147,10 @@ void Booking::displaySummary() {
     cout << "Nights: " << nights << endl;
     cout << "Total Cost: " << totalCost << " RON" << endl;
     cout << "Status: " << status << endl;
+    cout << "Total Cost: " << totalCost << " RON";
+    if (guest.getIsVip())
+        cout << " (VIP -10%)";
+    cout << endl;
 }
 ostream& operator<<(ostream& out, const Booking& obj) {
     out << "Booking ID: " << obj.bookingID << endl;

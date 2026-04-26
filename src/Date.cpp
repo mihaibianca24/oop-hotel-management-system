@@ -36,15 +36,18 @@ int Date::getYear() const {
     return year;
 }
 void Date::setDay(int day) {
-    if (day >=1 && day <= 31)
-        this->day = day;
+    if (day <1 || day > 31)
+        throw invalid_argument("Invalid day: " + to_string(day));
+    this->day = day;
 }
 void Date::setMonth(int month) {
-    if (month >=1 && month<=12)
+    if (month < 1 || month > 12)
+        throw std::invalid_argument("Invalid month: " + std::to_string(month));
     this->month = month;
 }
 void Date::setYear(int year) {
-    if (year>=2026)
+    if (year < 2026)
+        throw std::invalid_argument("Invalid year: " + std::to_string(year));
     this->year = year;
 }
 
@@ -103,11 +106,18 @@ std::ostream &operator<<(std::ostream &out, const Date &obj) {
 }
 
 std::istream &operator>>(std::istream &in, Date &obj) {
-    cout << "Day: ";
-    in >> obj.day;
-    cout << "Month: ";
-    in >> obj.month;
-    cout << "Year: ";
-    in >> obj.year;
+    try {
+        cout << "Day: ";
+        in >> obj.day;
+        obj.setDay(obj.day);
+        cout << "Month: ";
+        in >> obj.month;
+        obj.setMonth(obj.month);
+        cout << "Year: ";
+        in >> obj.year;
+        obj.setYear(obj.year);
+    } catch (invalid_argument& e) {
+        cout << "Error: " << e.what() << endl;
+    }
     return in;
 }

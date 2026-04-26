@@ -12,7 +12,6 @@
 class Booking {
 private:
     std::string bookingID;
-    static int noBookings;
     int nights;
     Guest guest;
     Accommodation* room;
@@ -52,7 +51,6 @@ private:
     int calculateNights() const;
     bool hasDateConflict(const Date& newCheckIn, const Date& newCheckOut) const;
     void displaySummary();
-    static int getNoBookings();
 
     friend std::ostream &operator<<(std::ostream &os, const Booking &obj);
     friend std::istream &operator>>(std::istream &os, Booking &obj);

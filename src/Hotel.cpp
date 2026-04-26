@@ -167,7 +167,7 @@ void Hotel::addGuest(const Guest &guest) {
 }
 void Hotel::displayAllGuests() {
     if (guests.empty())
-        throw std::runtime_error("No rooms available!");
+        throw std::runtime_error("No guests available!");
     std::cout <<"All Guests:" << std::endl;
     for (auto &guest : guests) {
         std::cout<<guest;
@@ -199,6 +199,12 @@ Booking *Hotel::makeBooking(int guestId, int roomNumber, Date checkIn, Date chec
         throw std::runtime_error("Room not available!");
 
     bookings.push_back(Booking(*guest, room, checkIn, checkOut));
+
+    if (guest->getIsVip()) {
+        double discountedCost = bookings.back().getTotalCost() * 0.90;
+        bookings.back().setTotalCost(discountedCost);
+        std::cout << "VIP discount applied! 10% off!" << std::endl;
+    }
 
     guest->incrementBookings();
 
@@ -328,12 +334,10 @@ std::istream& operator>>(std::istream& in, Hotel& obj) {
     in.ignore();
     return in;
 }
-
 void Hotel::saveToFiles() {
     std::ofstream roomsFile("rooms.txt");
     if (!roomsFile.is_open())
         throw std::runtime_error("Cannot open rooms.txt!");
-
     for (auto room : rooms) {
         roomsFile << room->getRoomType() << "\n";
         roomsFile << room->getRoomNumber() << "\n";
@@ -405,9 +409,9 @@ void Hotel::loadFromFiles() {
     bookings.clear();
 
     std::ifstream roomsFile("rooms.txt");
-    if (!roomsFile.is_open())
+    if (!roomsFile.is_open()) {
         return;
-
+    }
     std::string type;
     while (std::getline(roomsFile, type)) {
         int roomNumber;
@@ -422,7 +426,7 @@ void Hotel::loadFromFiles() {
         roomsFile >> isAvailable;
         roomsFile.ignore();
 
-        if (type == "StandardRoom") {
+        if (type == "Standard Room") {
             std::string bedType;
             bool hasBalcony;
             int floor;
@@ -501,4 +505,11 @@ void Hotel::loadFromFiles() {
         }
     }
     bookingsFile.close();
+    int maxId = 0;
+    for (auto& booking : bookings) {
+        std::string id = booking.getBookingID();
+        int num = std::stoi(id.substr(1));
+        if (num > maxId)
+            maxId = num;
+    }
 }
